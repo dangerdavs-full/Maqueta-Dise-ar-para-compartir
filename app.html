@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent Workspace | Sin Barreras</title>
+    <!-- Modern Font: Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- Estilos -->
+    <link rel="stylesheet" href="app.css">
+</head>
+<body class="light-mode">
+    <div class="app-container">
+        
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="logo-area">
+                <svg width="40" height="40" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="24" cy="24" r="22" fill="var(--color-accent)" />
+                  <circle cx="18" cy="16" r="4" fill="var(--color-bg-dark)" />
+                  <path d="M12 32c2-6 6-10 10-10" fill="none" stroke="var(--color-bg-dark)" stroke-width="6" stroke-linecap="round" />
+                  <path d="M20 36 L36 16" stroke="var(--color-bg-dark)" stroke-width="6" stroke-linecap="round" />
+                </svg>
+            </div>
+            
+            <nav class="nav-menu">
+                <button class="nav-item active" aria-label="Chats" title="Chats">
+                    <i class="ph ph-chats-circle"></i>
+                </button>
+                <button class="nav-item" aria-label="Clientes" title="Clientes">
+                    <i class="ph ph-users"></i>
+                </button>
+                <button class="nav-item" aria-label="Métricas" title="Panel de Rendimiento">
+                    <i class="ph ph-chart-line-up"></i>
+                </button>
+                <button class="nav-item" aria-label="Configuración" title="Ajustes">
+                    <i class="ph ph-gear"></i>
+                </button>
+            </nav>
+
+            <div class="user-profile">
+                <!-- Agent avatar -->
+                <img src="https://i.pravatar.cc/100?u=a042581f4e29026704d" alt="Perfil del Agente" class="avatar">
+                <span class="status-indicator online"></span>
+            </div>
+        </aside>
+
+        <!-- CHAT LIST -->
+        <section class="chat-list-panel">
+            <header class="panel-header">
+                <h2>Bandeja de Entrada</h2>
+                <div class="search-bar">
+                    <i class="ph ph-magnifying-glass"></i>
+                    <input type="text" placeholder="Buscar mensajes..." aria-label="Buscar mensajes">
+                </div>
+                <div class="filter-tabs">
+                    <button class="tab active">Todos</button>
+                    <button class="tab">WhatsApp</button>
+                    <button class="tab">Web</button>
+                </div>
+            </header>
+            
+            <div class="conversations">
+                <!-- Chat Item 1 -->
+                <article class="chat-item unread active" onclick="selectChat(this, 'Carlos Gómez')">
+                    <div class="chat-avatar">
+                        <span class="initials">CG</span>
+                        <i class="ph-fill ph-whatsapp-logo platform-icon wp"></i>
+                    </div>
+                    <div class="chat-preview">
+                        <div class="chat-header-info">
+                            <span class="chat-name">Carlos Gómez</span>
+                            <span class="chat-time">10:45 AM</span>
+                        </div>
+                        <p class="last-message">¿A qué hora abre la sucursal del centro?</p>
+                    </div>
+                    <span class="unread-badge">1</span>
+                </article>
+
+                <!-- Chat Item 2 -->
+                <article class="chat-item" onclick="selectChat(this, 'Ana Martínez')">
+                    <div class="chat-avatar">
+                        <img src="https://i.pravatar.cc/100?img=5" alt="Ana">
+                        <i class="ph-fill ph-instagram-logo platform-icon ig"></i>
+                    </div>
+                    <div class="chat-preview">
+                        <div class="chat-header-info">
+                            <span class="chat-name">Ana Martínez</span>
+                            <span class="chat-time">Ayer</span>
+                        </div>
+                        <p class="last-message">¡Perfecto! Pagaré con transferencia.</p>
+                    </div>
+                </article>
+
+                <!-- Chat Item 3 -->
+                <article class="chat-item" onclick="selectChat(this, 'Soporte Web - ID#8992')">
+                    <div class="chat-avatar">
+                        <i class="ph ph-user"></i>
+                        <i class="ph-fill ph-globe platform-icon web"></i>
+                    </div>
+                    <div class="chat-preview">
+                        <div class="chat-header-info">
+                            <span class="chat-name">Usuario Anónimo</span>
+                            <span class="chat-time">Ayer</span>
+                        </div>
+                        <p class="last-message">Tengo un problema con el carrito.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- ACTIVE CHAT WORKSPACE -->
+        <main class="active-chat-panel">
+            <!-- Barra superior: Herramientas Accesibilidad e Info Cliente -->
+            <header class="active-chat-header">
+                <!-- Herramientas de Accesibilidad e Información Cliente -->
+                <div class="active-contact-info">
+                    <div class="chat-avatar large">
+                        <span class="initials" id="active-initials">CG</span>
+                    </div>
+                    <div>
+                        <div class="name-status">
+                            <h3 id="active-name">Carlos Gómez</h3>
+                            <span class="sentiment-badge neutral" id="sentiment-indicator" title="Estado de ánimo de la conversación">
+                                <i class="ph ph-smiley-meh"></i> Neutral
+                            </span>
+                        </div>
+                        <p class="status">Escribiendo... <span class="typing-indicator"><span></span><span></span><span></span></span></p>
+                    </div>
+                </div>
+
+                <!-- Herramientas de Accesibilidad (Clave del proyecto) -->
+                <div class="accessibility-tools">
+                    <button class="tool-btn" id="btn-visual-alert" title="Activar Intermitencia Visual en vez de Sonido">
+                        <i class="ph ph-bell-ringing"></i> Alertas Visuales
+                    </button>
+                    <button class="tool-btn" id="btn-text-size" title="Aumentar Texto">
+                        <i class="ph ph-text-t"></i> Tamaño
+                    </button>
+                    <button class="tool-btn" id="btn-theme" title="Cambiar Tema">
+                        <i class="ph ph-moon"></i> Contraste
+                    </button>
+                </div>
+            </header>
+
+            <!-- Área de Mensajes -->
+            <div class="messages-area" id="messages-container">
+                <!-- Fecha -->
+                <div class="message-date">Hoy, 10:40 AM</div>
+                
+                <!-- Mensajes -->
+                <div class="message incoming">
+                    <div class="bubble">
+                        Hola, buenos días. Quería confirmar el horario de atención de la sucursal del centro. Voy a ir hoy en la tarde.
+                        <button class="speaker-btn" aria-label="Escuchar mensaje" onclick="readMessage(this)" title="Leído por el ordenador"><i class="ph-fill ph-speaker-high"></i></button>
+                    </div>
+                </div>
+
+                <div class="message outgoing">
+                    <div class="bubble">¡Hola, Carlos! Buenos días ☀️. Con gusto te ayudo con eso.</div>
+                </div>
+
+                <div class="message incoming" id="last-incoming">
+                    <div class="bubble">
+                        ¿A qué hora abre la sucursal del centro?
+                        <button class="speaker-btn" aria-label="Escuchar mensaje" onclick="readMessage(this)" title="Leído por el ordenador"><i class="ph-fill ph-speaker-high"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Accesos Rápidos (Respuestas predefinidas) -->
+            <div class="quick-replies-bar">
+                <span class="quick-title"><i class="ph ph-lightning"></i> Respuestas Rápidas:</span>
+                <button class="quick-btn" onclick="insertQuickReply('Nuestro horario es de Lunes a Viernes de 9:00 AM a 6:00 PM hrs.')">Horario Sucursal</button>
+                <button class="quick-btn" onclick="insertQuickReply('Por favor, envíame tu número de pedido para revisar el estatus 😊')">Pedir # de Orden</button>
+                <button class="quick-btn" onclick="insertQuickReply('¡Gracias por comunicarte con nosotros! ¿Hay algo más en lo que te pueda ayudar?')">Despedida Formal</button>
+            </div>
+
+            <!-- Entrada de Texto -->
+            <footer class="input-area">
+                <button class="attach-btn" title="Adjuntar Archivo"><i class="ph ph-paperclip"></i></button>
+                <div class="input-wrapper">
+                    <input type="text" id="message-input" placeholder="Escribe un mensaje a Carlos Gómez..." aria-label="Escribir mensaje">
+                    <button class="mic-btn" id="mic-btn" title="Dictar por Voz (Para agentes con discap. motriz)"><i class="ph-fill ph-microphone"></i></button>
+                </div>
+                <button class="ai-btn" id="ai-btn" title="Autocompletar Inteligente con IA"><i class="ph-fill ph-magic-wand"></i></button>
+                <button class="send-btn" id="send-btn" title="Enviar Mensaje"><i class="ph-fill ph-paper-plane-right"></i></button>
+            </footer>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
